@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880859850369582328}
-  - component: {fileID: 4150114073369229816}
+  - component: {fileID: 7791707011700346614}
   m_Layer: 0
-  m_Name: Action_Attack
+  m_Name: Action_Break
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4150114073369229816
+--- !u!114 &7791707011700346614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,14 +40,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4662063912380139593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f187812a28c70f241a9f8b3a39347fe0, type: 3}
+  m_Script: {fileID: 11500000, guid: b0c57811eb1ae5e47a4aac5d3bf6b3b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
-  prepareTime: 0.3
-  endTime: 0.2
-  StartEffect: {fileID: 7198707629319893167, guid: 5c3c9ebc7963eae4fa2267ef854e7c1a,
-    type: 3}
-  HitEffect: {fileID: 3197864859499904330, guid: e86f19151ee020f4fba65546100a3617,
-    type: 3}
-  Damage: 3
+  prepareTime: 1.2
+  endTime: 0
+  priority: 21

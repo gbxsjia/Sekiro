@@ -7,15 +7,18 @@ public class Action_Base : MonoBehaviour
     public Character_Base Caster;
     public float prepareTime;
     public float endTime;
+    public int priority;
 
-    private float timer;
+    protected float timer;
     private bool casted;
 
     protected int direction;
+
+    public bool useActionProgressBar=false;
     public virtual void OnActionStart(Character_Base character)
     {
         Caster = character;
-        direction = character.IsFacingRight ? 1 : -1;
+        direction = character.InputDirectionRight ? 1 : -1;
     }
     protected virtual void Update()
     {
@@ -38,9 +41,13 @@ public class Action_Base : MonoBehaviour
     {
         OnActionEnd();
     }
-    public void OnActionEnd()
+    public virtual void OnActionEnd()
     {
         Caster.ActionEnd(this);
         Destroy(gameObject);
+    }
+    public float GetProgress()
+    {
+        return timer / prepareTime;
     }
 }
