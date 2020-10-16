@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 880859850369582328}
-  - component: {fileID: 4150114073369229816}
+  - component: {fileID: 1219863668027169701}
   m_Layer: 0
-  m_Name: Action_Attack
+  m_Name: Action_Execute 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4150114073369229816
+--- !u!114 &1219863668027169701
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,17 +40,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4662063912380139593}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f187812a28c70f241a9f8b3a39347fe0, type: 3}
+  m_Script: {fileID: 11500000, guid: 066db3f88071cd44ca2a74d8be296c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
-  prepareTime: 0.54
-  endTime: 1.67
-  priority: 0
-  useActionProgressBar: 1
-  StartEffect: {fileID: 7198707629319893167, guid: 5c3c9ebc7963eae4fa2267ef854e7c1a,
-    type: 3}
-  HitBox: {fileID: 3197864859499904330, guid: e86f19151ee020f4fba65546100a3617, type: 3}
-  Damage: 10
-  canBlock: 1
-  canParry: 1
+  prepareTime: 0
+  endTime: 50
+  priority: 22
+  useActionProgressBar: 0

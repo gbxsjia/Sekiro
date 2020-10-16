@@ -144,13 +144,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 206631848}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.507, y: 2.51, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 519420032}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &206631850
 MonoBehaviour:
@@ -428,7 +428,7 @@ Transform:
   m_Children:
   - {fileID: 625205502}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &921845324
 MonoBehaviour:
@@ -447,6 +447,7 @@ MonoBehaviour:
   HealthCurrent: 0
   StanceCurrent: 0
   camp: 0
+  isDead: 0
 --- !u!1001 &1337036768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,6 +515,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5911835217427377934, guid: 649d4b37cfb7cfd4b95b9183e98b4864,
+        type: 3}
+      propertyPath: executeDistance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5911835217427377934, guid: 649d4b37cfb7cfd4b95b9183e98b4864,
+        type: 3}
+      propertyPath: executePrefab
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: d8d99c91993d3724fabdca9dc5d84035,
+        type: 3}
+    - target: {fileID: 5911835217427377934, guid: 649d4b37cfb7cfd4b95b9183e98b4864,
+        type: 3}
+      propertyPath: BeExecutedActionPrefab
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: 2c1896c1eedd9cf4f9eac529727828ba,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 649d4b37cfb7cfd4b95b9183e98b4864, type: 3}
 --- !u!1 &1985670209
@@ -595,7 +613,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1985670212
 BoxCollider2D:
@@ -687,7 +705,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7082012469770450125
 PrefabInstance:
@@ -696,6 +714,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 117556927631186111, guid: be4ec889f7ee37b4e964a19ecbbe5565,
+        type: 3}
+      propertyPath: camp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 117556927631186111, guid: be4ec889f7ee37b4e964a19ecbbe5565,
+        type: 3}
+      propertyPath: BeExecutedActionPrefab
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: 2c1896c1eedd9cf4f9eac529727828ba,
+        type: 3}
+    - target: {fileID: 7082012470939114253, guid: be4ec889f7ee37b4e964a19ecbbe5565,
+        type: 3}
+      propertyPath: attackActionPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7082012470939114253, guid: be4ec889f7ee37b4e964a19ecbbe5565,
+        type: 3}
+      propertyPath: attackActionPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: 0fece7bb0138b3f41af894052b455a94,
+        type: 3}
+    - target: {fileID: 7082012470939114253, guid: be4ec889f7ee37b4e964a19ecbbe5565,
+        type: 3}
+      propertyPath: attackActionPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: a5b304ea7a68935459c872c23249395f,
+        type: 3}
     - target: {fileID: 7082012470939114255, guid: be4ec889f7ee37b4e964a19ecbbe5565,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -734,7 +780,7 @@ PrefabInstance:
     - target: {fileID: 7082012470939114255, guid: be4ec889f7ee37b4e964a19ecbbe5565,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7082012470939114255, guid: be4ec889f7ee37b4e964a19ecbbe5565,
         type: 3}

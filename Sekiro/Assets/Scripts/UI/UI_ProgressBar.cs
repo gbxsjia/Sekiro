@@ -21,7 +21,6 @@ public class UI_ProgressBar : MonoBehaviour
             if(character.currentAction && character.currentAction.useActionProgressBar)
             {
                 float percent=character.currentAction.GetProgress();
-                print(percent);
                 if (percent <= 1)
                 {
                     ActionProgressBar.fillAmount = percent;

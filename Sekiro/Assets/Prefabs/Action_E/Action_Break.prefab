@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
-  prepareTime: 1.2
+  prepareTime: 3.5
   endTime: 0
   priority: 21
+  useActionProgressBar: 0

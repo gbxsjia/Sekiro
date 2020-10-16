@@ -17,6 +17,7 @@ public class Attributes : MonoBehaviour
     public event System.Action UIChangeEvent;
 
     public int camp;
+    public bool isDead;
     private void Start()
     {
         HealthCurrent = HealthMax;
@@ -28,6 +29,11 @@ public class Attributes : MonoBehaviour
     }
     public void TakeDamage(float amount, GameObject source, bool canBlock=true, bool canParry=true)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         float healthDamage=amount;
         if (TakeDamageEvent != null)
         {

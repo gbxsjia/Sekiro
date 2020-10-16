@@ -1,5 +1,45 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &5911835217427377934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594707547363650754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f953348ca69e6c4db0c9a34616a38b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attribute: {fileID: 0}
+  walkSpeed: 1
+  runSpeed: 2
+  jumpSpeed: 5
+  foot: {fileID: 3594707547714521494}
+  camp: 0
+  currentAction: {fileID: 0}
+  attackActionPrefabs:
+  - {fileID: 4662063912380139593, guid: 7eec3fec562abec4ca1101f4a0d0e02e, type: 3}
+  dodgeActionPrefab: {fileID: 7276332001182623334, guid: 72c377d89732546428b7f9f5fbdd0de0,
+    type: 3}
+  stunActionPrefab: {fileID: 4662063912380139593, guid: 962dc82e0d281f84d884fe4c02bfd7b3,
+    type: 3}
+  brokeActionPrefab: {fileID: 4662063912380139593, guid: 0b20fc38d52474a468b146dc81034dbf,
+    type: 3}
+  DefendActionPrefab: {fileID: 4662063912380139593, guid: 46fa5db57caa78745a32be034d630435,
+    type: 3}
+  InputDirectionRight: 1
+  IsFacingRight: 1
+  isDefending: 0
+  isParrying: 0
+  isBroken: 0
+  isImmortal: 0
+  animator: {fileID: 3594707547971063577}
+  graphic: {fileID: 3594707547971063583}
+  executePrefab: {fileID: 0}
+  executeDistance: 0
+  executeTarget: {fileID: 0}
 --- !u!114 &2721978668005712656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,13 +117,32 @@ PrefabInstance:
     - target: {fileID: 3231019472248499150, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
       propertyPath: m_Name
-      value: Character
+      value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7acdf7bda92e25b418549eb6a2e917ac, type: 3}
 --- !u!1 &3594707547363650754 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3231019472248499150, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 2104329394502453004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3594707547971063583 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3231019471774697491, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 2104329394502453004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3594707547971063577 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3231019471774697493, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+    type: 3}
+  m_PrefabInstance: {fileID: 2104329394502453004}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3594707547714521494 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3231019472576564890, guid: 7acdf7bda92e25b418549eb6a2e917ac,
     type: 3}
   m_PrefabInstance: {fileID: 2104329394502453004}
   m_PrefabAsset: {fileID: 0}

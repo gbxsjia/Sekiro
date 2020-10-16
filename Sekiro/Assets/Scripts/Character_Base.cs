@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class Character_Base : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
     public Attributes attribute;
 
     [SerializeField]
-    private float walkSpeed;
+    protected float walkSpeed;
     [SerializeField]
-    private float runSpeed;
+    protected float runSpeed;
     [SerializeField]
-    private float jumpSpeed;
-    private bool onGround;
+    protected float jumpSpeed;
+    protected bool onGround;
 
     [SerializeField]
-    private Transform foot;
+    protected Transform foot;
 
     public int camp;
 
@@ -26,6 +26,7 @@ public class Character_Base : MonoBehaviour
     public GameObject stunActionPrefab;
     public GameObject brokeActionPrefab;
     public GameObject DefendActionPrefab;
+    public GameObject BeExecutedActionPrefab;
 
     public bool InputDirectionRight=true;
     public bool IsFacingRight=true;
@@ -33,11 +34,13 @@ public class Character_Base : MonoBehaviour
     public bool isDefending;
     public bool isParrying;
     public bool isBroken;
+    public bool isImmortal;
+    public bool isDead;
 
     [SerializeField]
-    private Animator animator;
+    protected Animator animator;
     [SerializeField]
-    private Transform graphic;
+    protected Transform graphic;
     
     private void Awake()
     {
@@ -46,13 +49,27 @@ public class Character_Base : MonoBehaviour
         attribute.camp = camp;
         attribute.StanceBreakEvent += Broke;
         attribute.TakeDamageEvent += OnTakeDamage;
+        attribute.DeathEvent += OnDeath;
+    }
+
+    private void OnDeath()
+    {
+        isDead = true;
+        isBroken = false;
+        attribute.isDead = true;
+        animator.Play("Death");
+        Destroy(gameObject, 1);
     }
 
     private void OnTakeDamage(ref float damage, GameObject damageSource, bool canBlock,bool canParry)
     {
         if (canBlock)
         {
-            if (isParrying)
+            if (isImmortal)
+            {
+                damage = 0;
+            }
+            else if (isParrying)
             {
                 damage = 0;
                 if (canParry)
@@ -216,7 +233,7 @@ public class Character_Base : MonoBehaviour
         currentAction = null;
         animator.Play("Idle");
     }
-    public void Attack()
+    public virtual void Attack()
     {
         GameObject attackPrefab = attackActionPrefabs[Random.Range(0, attackActionPrefabs.Length)];
         if (StartAction(attackPrefab))
@@ -267,6 +284,14 @@ public class Character_Base : MonoBehaviour
         {
             animator.Play("Death");
         }
+    }
+    public void BeExecuted()
+    {
+        if (StartAction(BeExecutedActionPrefab))
+        {
+            animator.Play("Death");
+        }
+
     }
     public void RecoverBroke()
     {
