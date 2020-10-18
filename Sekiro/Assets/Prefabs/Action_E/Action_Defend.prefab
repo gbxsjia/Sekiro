@@ -47,4 +47,6 @@ MonoBehaviour:
   prepareTime: 0
   endTime: 0
   priority: 0
+  AnimationName: Defend
+  useActionProgressBar: 0
   parryDuration: 0.3

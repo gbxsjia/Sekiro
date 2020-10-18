@@ -45,9 +45,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
   prepareTime: 0
-  endTime: 0.1
+  endTime: 0.2
   priority: 1
-  DodgeSpeed: 3
+  AnimationName: Dash
+  useActionProgressBar: 0
+  DodgeSpeed: 4
   DodgeDuration: 0.3
   curve:
     serializedVersion: 2

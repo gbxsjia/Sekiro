@@ -28,6 +28,7 @@ public class Character_Base : MonoBehaviour
     public GameObject DefendActionPrefab;
     public GameObject BeExecutedActionPrefab;
 
+    public bool IsLookingRight = true;
     public bool InputDirectionRight=true;
     public bool IsFacingRight=true;
 
@@ -36,7 +37,8 @@ public class Character_Base : MonoBehaviour
     public bool isBroken;
     public bool isImmortal;
     public bool isDead;
-
+    public bool isCrouch;
+    public bool isInBush;
     [SerializeField]
     protected Animator animator;
     [SerializeField]
@@ -51,14 +53,13 @@ public class Character_Base : MonoBehaviour
         attribute.TakeDamageEvent += OnTakeDamage;
         attribute.DeathEvent += OnDeath;
     }
-
+ 
     private void OnDeath()
     {
         isDead = true;
         isBroken = false;
-        attribute.isDead = true;
-        animator.Play("Death");
-        Destroy(gameObject, 1);
+        attribute.isDead = true;        
+        Destroy(gameObject,3);
     }
 
     private void OnTakeDamage(ref float damage, GameObject damageSource, bool canBlock,bool canParry)
@@ -81,11 +82,11 @@ public class Character_Base : MonoBehaviour
             else if (isDefending)
             {
                 damage *= 0.3f;
-                attribute.ReduceStance(damage * 0.7f);
+                attribute.ReduceStance(damage * 1f);
             }
             else
             {
-                attribute.ReduceStance(damage * 0.3f);
+                attribute.ReduceStance(damage * 1f);
             }
         }
         else
@@ -115,11 +116,26 @@ public class Character_Base : MonoBehaviour
             {
                 if (rb.velocity.magnitude >= 0.3f)
                 {
-                    animator.Play("Run");
+                    if (isCrouch)
+                    {
+                        animator.Play("CrouchWalk");
+                    }
+                    else
+                    {
+                        animator.Play("Run");
+                    }
                 }
                 else
                 {
-                    animator.Play("Idle");
+                    if (isCrouch)
+                    {
+                        animator.Play("CrouchIdle");
+                    }
+                    else
+                    {
+                        animator.Play("Idle");
+                    }
+                  
                 }
             }
             else
@@ -135,7 +151,7 @@ public class Character_Base : MonoBehaviour
             }
         }
     }
-    private void TurnBody()
+    protected void TurnBody()
     {
         if (IsFacingRight != InputDirectionRight)
         {
@@ -143,6 +159,30 @@ public class Character_Base : MonoBehaviour
             Vector3 scale = graphic.localScale;
             scale.x *= -1;
             graphic.localScale = scale;
+        }
+    }
+    public void FacePosition(Vector3 position)
+    {
+        bool isRight = position.x > transform.position.x;
+        if (IsFacingRight != isRight)
+        {
+            IsFacingRight = isRight;
+            InputDirectionRight = isRight;
+            IsLookingRight = isRight;
+            Vector3 scale = graphic.localScale;
+            scale.x *= -1;
+            graphic.localScale = scale;
+        }
+    }
+    public Vector3 GetForward()
+    {
+        if (IsFacingRight)
+        {
+            return Vector3.right;
+        }
+        else
+        {
+            return Vector3.left;
         }
     }
     private void FootTrace()
@@ -159,7 +199,11 @@ public class Character_Base : MonoBehaviour
     }
     public bool CanMove()
     {
-        return !currentAction;
+        return !isDead && !currentAction;
+    }
+    public bool CanAction()
+    {
+        return !isDead;
     }
     public void SetVelocity(Vector3 velocity, bool IncludeY)
     {
@@ -182,23 +226,23 @@ public class Character_Base : MonoBehaviour
         }
      
         if (CanMove())
-        {
+        {        
             if (direction != Vector3.zero)
             {
-                if (isSprint)
+                if (isSprint && onGround)
                 {
                     direction *= runSpeed;
+                    isCrouch = false;
                 }
                 else
                 {
                     direction *= walkSpeed;
                 }
-                SetVelocity(direction, false);
-    
+                SetVelocity(direction, false); 
             }
             else
             {
-                SetVelocity(Vector3.zero,false);                  
+                SetVelocity(Vector3.zero, false);
             }
         }
     }
@@ -214,7 +258,7 @@ public class Character_Base : MonoBehaviour
     public bool StartAction(GameObject actionPrefab)
     {
         int priority = actionPrefab.GetComponent<Action_Base>().priority;
-        if (currentAction == null || priority > currentAction.priority)
+        if (CanAction() && (currentAction == null || priority > currentAction.priority))
         {
             GameObject g = Instantiate(actionPrefab);
             Action_Base action = g.GetComponent<Action_Base>();
@@ -224,6 +268,13 @@ public class Character_Base : MonoBehaviour
             }
             currentAction = action;
             action.OnActionStart(this);
+
+            string an = g.GetComponent<Action_Base>().AnimationName;
+            if (an != "")
+            {
+                animator.Play(an);
+            }
+
             return true;
         }
         return false;
@@ -231,22 +282,16 @@ public class Character_Base : MonoBehaviour
     public void ActionEnd(Action_Base action)
     {
         currentAction = null;
-        animator.Play("Idle");
+        AnimtionUpdate();
     }
     public virtual void Attack()
     {
-        GameObject attackPrefab = attackActionPrefabs[Random.Range(0, attackActionPrefabs.Length)];
-        if (StartAction(attackPrefab))
-        {
-            animator.Play("Attack_1");
-        }       
+        GameObject attackPrefab = attackActionPrefabs[Random.Range(0, attackActionPrefabs.Length)];       
+        StartAction(attackPrefab);
     }
     public void Defend()
     {
-        if (StartAction(DefendActionPrefab))
-        {
-            animator.Play("Defend");
-        }
+        StartAction(DefendActionPrefab);
     }
     public void CancelDefend()
     {
@@ -264,34 +309,22 @@ public class Character_Base : MonoBehaviour
         if ( onGround)
         {
             TurnBody();
-            if (StartAction(dodgeActionPrefab))
-            {
-                animator.Play("Run");
-            }
+            StartAction(dodgeActionPrefab);
         }        
     }
     public void Stun()
     {
-        if (StartAction(stunActionPrefab))
-        {
-            animator.Play("TakeHit");
-        }
+        StartAction(stunActionPrefab);
     }
     public void Broke()
     {
         isBroken = true;
-        if (StartAction(brokeActionPrefab))
-        {
-            animator.Play("Death");
-        }
+        StartAction(brokeActionPrefab);
+
     }
     public void BeExecuted()
     {
-        if (StartAction(BeExecutedActionPrefab))
-        {
-            animator.Play("Death");
-        }
-
+        StartAction(BeExecutedActionPrefab);
     }
     public void RecoverBroke()
     {
@@ -302,5 +335,19 @@ public class Character_Base : MonoBehaviour
     {
         attribute.ReduceStance(20);
     }
-    
+    public void AddForce(Vector3 force)
+    {
+        rb.AddForce(force,ForceMode2D.Impulse);
+    }
+    public void ClearSpeed()
+    {
+        rb.velocity = Vector3.zero;
+    }
+    public void Crouch()
+    {
+        if (CanMove())
+        {
+            isCrouch = !isCrouch;
+        }
+    }
 }

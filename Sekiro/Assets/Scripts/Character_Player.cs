@@ -8,33 +8,55 @@ public class Character_Player : Character_Base
     public GameObject executePrefab;
     public float executeDistance;
     public Character_Base executeTarget;
+
+    public GameObject HooKTarget;
+    public GameObject HookActionPrefab;
+
+    public int DangerSignAmount;
+    public event System.Action<bool> DangerSignEvent;
     public override void Attack()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, executeDistance);
-        
-        foreach (Collider2D c in colliders)
+        foreach (AIController c in InGameManager.instance.allEnemies)
         {
-            executeTarget = c.GetComponent<Character_Base>();
-            if (executeTarget && executeTarget.isBroken && executeTarget.camp!=camp)
+            if (c.canBeExecute)
             {
-                break;
-            }
-            else
-            {
-                executeTarget = null;
+                executeTarget = c.character;
             }
         }
         if (executeTarget)
         {
-            if (StartAction(executePrefab))
-            {
-                animator.Play("Attack_1");
-            }
+            StartAction(executePrefab); 
         }
         else
         {
             base.Attack();
         }
        
+    }
+    public void UseHook()
+    {
+        StartAction(HookActionPrefab);
+    }
+    public void ShowDangerSign()
+    {
+        DangerSignAmount++;
+        if (DangerSignAmount == 1)
+        {
+            if (DangerSignEvent != null)
+            {
+                DangerSignEvent(true);
+            }
+        }
+    }
+    public void CancelDangerSign()
+    {
+        DangerSignAmount--;
+        if (DangerSignAmount == 0)
+        {
+            if (DangerSignEvent != null)
+            {
+                DangerSignEvent(false);
+            }
+        }
     }
 }

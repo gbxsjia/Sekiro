@@ -47,6 +47,8 @@ MonoBehaviour:
   prepareTime: 0
   endTime: 0.1
   priority: 1
+  AnimationName: Run
+  useActionProgressBar: 0
   DodgeSpeed: 3
   DodgeDuration: 0.3
   curve:

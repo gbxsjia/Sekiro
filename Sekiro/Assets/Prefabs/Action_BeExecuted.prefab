@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 880859850369582328}
   - component: {fileID: 1219863668027169701}
   m_Layer: 0
-  m_Name: Action_Execute 1
+  m_Name: Action_BeExecuted
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,4 +47,5 @@ MonoBehaviour:
   prepareTime: 0
   endTime: 50
   priority: 22
+  AnimationName: BeExecuted
   useActionProgressBar: 0

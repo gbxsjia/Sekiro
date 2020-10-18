@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 880859850369582328}
   - component: {fileID: 4150114073369229816}
   m_Layer: 0
-  m_Name: Action_Attack 2
+  m_Name: Action_Stab1.2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,13 +44,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
-  prepareTime: 0.69
-  endTime: 0.82
+  prepareTime: 1.333
+  endTime: 1.667
   priority: 0
+  AnimationName: Enemy_Stab1_2
   useActionProgressBar: 1
+  useDanagerSign: 1
+  Impluse: 3
   StartEffect: {fileID: 7198707629319893167, guid: 5c3c9ebc7963eae4fa2267ef854e7c1a,
     type: 3}
   HitBox: {fileID: 3197864859499904330, guid: e86f19151ee020f4fba65546100a3617, type: 3}
-  Damage: 10
-  canBlock: 1
-  canParry: 1
+  Damage: 20
+  canBlock: 0
+  canParry: 0

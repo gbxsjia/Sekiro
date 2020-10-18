@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     public static PlayerInput instance;
-    Character_Base character;
+    Character_Player character;
+
+    private Vector3 MousePosition;
     private void Awake()
     {
-        character = GetComponent<Character_Base>();
+        character = GetComponent<Character_Player>();
         instance = this;
     }
     void Update()
@@ -38,5 +40,39 @@ public class PlayerInput : MonoBehaviour
         {
             character.Dodge();
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            character.UseHook();
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            character.Crouch();
+        }
+        GetMousePosition();
+        FindHook();
+    }
+    private void GetMousePosition()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = 0;
+        MousePosition = Camera.main.ScreenToWorldPoint(mousePos);
+        character.IsLookingRight = MousePosition.x > character.transform.position.x;
+    }
+    private void FindHook()
+    {
+        float dis = 99999;
+        foreach (HookTarget hook in HookTarget.Hooks)
+        {
+            if (hook.Active)
+            {
+                float newDis = Vector3.Distance(hook.transform.position, MousePosition);
+                if (newDis < dis)
+                {
+                    dis = newDis;
+                    character.HooKTarget = hook.gameObject;
+                }
+            }
+        }
+
     }
 }

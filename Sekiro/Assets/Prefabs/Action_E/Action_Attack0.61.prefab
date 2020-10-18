@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 880859850369582328}
   - component: {fileID: 4150114073369229816}
   m_Layer: 0
-  m_Name: Action_Attack
+  m_Name: Action_Attack0.61
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,10 +44,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
-  prepareTime: 0.54
-  endTime: 1.67
+  prepareTime: 0.61
+  endTime: 0.46
   priority: 0
+  AnimationName: Attack_0_54
   useActionProgressBar: 1
+  useDanagerSign: 0
+  Impluse: 1
   StartEffect: {fileID: 7198707629319893167, guid: 5c3c9ebc7963eae4fa2267ef854e7c1a,
     type: 3}
   HitBox: {fileID: 3197864859499904330, guid: e86f19151ee020f4fba65546100a3617, type: 3}

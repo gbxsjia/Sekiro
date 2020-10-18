@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Caster: {fileID: 0}
-  prepareTime: 1
-  endTime: 1.5
+  prepareTime: 0.5
+  endTime: 1
   priority: 1
+  AnimationName: Execute
   useActionProgressBar: 0

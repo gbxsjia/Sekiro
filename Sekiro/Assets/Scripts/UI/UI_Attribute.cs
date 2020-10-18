@@ -11,13 +11,13 @@ public class UI_Attribute : MonoBehaviour
 
     public Attributes attributes;
 
-    private void Awake()
+    protected virtual void Start()
     {
         attributes = GetComponentInParent<Attributes>();
         attributes.UIChangeEvent += OnUIChange;
     }
 
-    private void OnUIChange()
+    protected void OnUIChange()
     {
         HealthDamageBar.fillAmount = HealthBar.fillAmount;
         HealthBar.fillAmount = attributes.HealthCurrent / attributes.HealthMax;

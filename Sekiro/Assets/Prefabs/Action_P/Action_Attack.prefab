@@ -47,6 +47,7 @@ MonoBehaviour:
   prepareTime: 0.3
   endTime: 0.2
   priority: 0
+  AnimationName: Attack_1
   useActionProgressBar: 0
   StartEffect: {fileID: 7198707629319893167, guid: 5c3c9ebc7963eae4fa2267ef854e7c1a,
     type: 3}
