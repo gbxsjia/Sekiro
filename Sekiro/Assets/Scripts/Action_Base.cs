@@ -16,16 +16,18 @@ public class Action_Base : MonoBehaviour
     protected int direction;
 
     public bool useActionProgressBar=false;
-    public bool useDanagerSign;
+    public bool isStab;
+    public bool isBottomAttack;
     public float Impluse;
     public virtual void OnActionStart(Character_Base character)
     {
         Caster = character;
         direction = character.InputDirectionRight ? 1 : -1;
-        if (useDanagerSign)
+        if (isStab || isBottomAttack)
         {
             PlayerInput.instance.GetComponent<Character_Player>().ShowDangerSign();
         }
+        Caster.isStabing = isStab;
     }
     protected virtual void Update()
     {
@@ -53,14 +55,15 @@ public class Action_Base : MonoBehaviour
     }
     public virtual void OnActionEnd()
     {
-        if (useDanagerSign)
+        if (isStab || isBottomAttack)
         {
             PlayerInput.instance.GetComponent<Character_Player>().CancelDangerSign();
         }
         if (Caster && Caster.gameObject)
         {
             Caster.ActionEnd(this);
-        }       
+        }
+        Caster.isStabing = isStab;
         Destroy(gameObject);
     }
     public float GetProgress()

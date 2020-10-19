@@ -92,8 +92,15 @@ public class Action_Hook : Action_Base
         base.OnActionStart(character); 
 
         Character_Player player = Caster as Character_Player;
-        pointB = player.HooKTarget.transform;
-        player.FacePosition(player.HooKTarget.transform.position);
+        if (player.HooKTarget)
+        {
+            pointB = player.HooKTarget.transform;
+            player.FacePosition(player.HooKTarget.transform.position);
+        }
+        else
+        {
+            OnActionEnd();
+        }
     }
 
     protected override void Update()

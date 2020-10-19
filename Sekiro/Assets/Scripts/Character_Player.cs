@@ -11,6 +11,7 @@ public class Character_Player : Character_Base
 
     public GameObject HooKTarget;
     public GameObject HookActionPrefab;
+    public GameObject CounterStabPrefab;
 
     public int DangerSignAmount;
     public event System.Action<bool> DangerSignEvent;
@@ -18,7 +19,7 @@ public class Character_Player : Character_Base
     {
         foreach (AIController c in InGameManager.instance.allEnemies)
         {
-            if (c.canBeExecute)
+            if (c && c.canBeExecute && Vector3.Distance(c.transform.position, transform.position) <= 2f && !c.character.isDead)
             {
                 executeTarget = c.character;
             }
@@ -56,6 +57,33 @@ public class Character_Player : Character_Base
             if (DangerSignEvent != null)
             {
                 DangerSignEvent(false);
+            }
+        }
+    }
+    public override void Dodge()
+    {
+        if (onGround)
+        {
+            TurnBody();
+
+            bool hasTarget = false;
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position +Vector3.up*0.5f, GetForward(), 4f);
+            foreach (RaycastHit2D hit in hits)
+            {
+                Character_Base c = hit.collider.GetComponent<Character_Base>();        
+                if (c && c.isStabing && !c.isDead && c.camp != camp)
+                {
+                    hasTarget = true;
+                    break;
+                }
+            }
+            if (hasTarget)
+            {
+                StartAction(CounterStabPrefab);
+            }
+            else
+            {            
+                StartAction(dodgeActionPrefab);
             }
         }
     }

@@ -46,6 +46,9 @@ MonoBehaviour:
   Caster: {fileID: 0}
   prepareTime: 0.5
   endTime: 1
-  priority: 1
+  priority: 2
   AnimationName: Execute
   useActionProgressBar: 0
+  isStab: 0
+  isBottomAttack: 0
+  Impluse: 0

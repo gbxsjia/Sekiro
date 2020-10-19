@@ -27,6 +27,7 @@ public class Character_Base : MonoBehaviour
     public GameObject brokeActionPrefab;
     public GameObject DefendActionPrefab;
     public GameObject BeExecutedActionPrefab;
+    public GameObject BeCounterStabPrefab;
 
     public bool IsLookingRight = true;
     public bool InputDirectionRight=true;
@@ -39,10 +40,13 @@ public class Character_Base : MonoBehaviour
     public bool isDead;
     public bool isCrouch;
     public bool isInBush;
+    public bool isStabing;
     [SerializeField]
     protected Animator animator;
     [SerializeField]
     protected Transform graphic;
+    [SerializeField]
+    protected Transform BodySlot;
     
     private void Awake()
     {
@@ -58,7 +62,9 @@ public class Character_Base : MonoBehaviour
     {
         isDead = true;
         isBroken = false;
-        attribute.isDead = true;        
+        attribute.isDead = true;
+        GameObject g = EffectManager.instance.CreateEffectByIndex(transform.position + Vector3.up * 0.5f, 3, 3);
+        g.transform.SetParent(BodySlot);
         Destroy(gameObject,3);
     }
 
@@ -72,26 +78,36 @@ public class Character_Base : MonoBehaviour
             }
             else if (isParrying)
             {
+                FacePosition(damageSource.transform.position);
                 damage = 0;
                 if (canParry)
                 {
                     Character_Base sourceCharacter= damageSource.GetComponent<Character_Base>();
                     sourceCharacter.GetParried();
+                    sourceCharacter.AddForce(GetForward());                 
                 }
+                EffectManager.instance.CreateEffectByIndex(transform.position + GetForward() * 0.6f + Vector3.up * 0.5f, 4, 1);
             }
             else if (isDefending)
             {
+                FacePosition(damageSource.transform.position);
                 damage *= 0.3f;
                 attribute.ReduceStance(damage * 1f);
+                AddForce(GetForward() * -1f);
+                EffectManager.instance.CreateEffectByIndex(transform.position + GetForward() * 0.6f + Vector3.up * 0.5f, 0, 1);
             }
             else
             {
                 attribute.ReduceStance(damage * 1f);
+                StartAction(stunActionPrefab);
+                EffectManager.instance.CreateEffectByIndex(transform.position + Vector3.up * 0.5f, 2, 1, IsFacingRight);
             }
         }
         else
         {
             attribute.ReduceStance(damage * 0.3f);
+            AddForce(GetForward() * -1f);
+            EffectManager.instance.CreateEffectByIndex(transform.position +  Vector3.up * 0.5f, 2, 1, IsFacingRight);
         }
     }
 
@@ -203,7 +219,7 @@ public class Character_Base : MonoBehaviour
     }
     public bool CanAction()
     {
-        return !isDead;
+        return !isDead && !isBroken;
     }
     public void SetVelocity(Vector3 velocity, bool IncludeY)
     {
@@ -258,7 +274,7 @@ public class Character_Base : MonoBehaviour
     public bool StartAction(GameObject actionPrefab)
     {
         int priority = actionPrefab.GetComponent<Action_Base>().priority;
-        if (CanAction() && (currentAction == null || priority > currentAction.priority))
+        if ((CanAction() || priority > 20) && (currentAction == null || priority > currentAction.priority))
         {
             GameObject g = Instantiate(actionPrefab);
             Action_Base action = g.GetComponent<Action_Base>();
@@ -278,6 +294,10 @@ public class Character_Base : MonoBehaviour
             return true;
         }
         return false;
+    }
+    public void PlayAnimation(string name)
+    {
+        animator.Play(name,0,0);
     }
     public void ActionEnd(Action_Base action)
     {
@@ -304,7 +324,7 @@ public class Character_Base : MonoBehaviour
             }
         }
     }
-    public void Dodge()
+    public virtual void Dodge()
     {
         if ( onGround)
         {
@@ -325,6 +345,10 @@ public class Character_Base : MonoBehaviour
     public void BeExecuted()
     {
         StartAction(BeExecutedActionPrefab);
+    }
+    public void BeCounterStab()
+    {
+        StartAction(BeCounterStabPrefab);
     }
     public void RecoverBroke()
     {

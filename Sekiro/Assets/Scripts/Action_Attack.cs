@@ -9,6 +9,8 @@ public class Action_Attack : Action_Base
     public int Damage;
     public bool canBlock=true;
     public bool canParry=true;
+
+    public float duration = 0.1f;
     protected override void Effect()
     {
         base.Effect();
@@ -19,7 +21,7 @@ public class Action_Attack : Action_Base
 
         HitBox hb= g.GetComponent<HitBox>();
         hb.InitHitBox(Caster.gameObject, Damage, Caster.camp, canBlock, canParry);
-        Destroy(g, 0.1f);
+        Destroy(g, duration);
     }
     public override void OnActionStart(Character_Base character)
     {

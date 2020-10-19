@@ -49,3 +49,6 @@ MonoBehaviour:
   priority: 21
   AnimationName: Death
   useActionProgressBar: 0
+  isStab: 0
+  isBottomAttack: 0
+  Impluse: 0

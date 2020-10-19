@@ -22,6 +22,9 @@ public class AIController : MonoBehaviour
     private float distance;
     public bool canBeExecute;
 
+    public bool Partol;
+    public float PartolDuration;
+
     private Character_Player player;
     [SerializeField]
     private LayerMask SightLayer;
@@ -37,9 +40,12 @@ public class AIController : MonoBehaviour
     }
     private void Update()
     {
-        direction = player.transform.position - transform.position;
-        distance = direction.magnitude;
-        UpdateSight();
+        if(character.CanAction())
+        {
+            direction = player.transform.position - transform.position;
+            distance = direction.magnitude;
+            UpdateSight();
+        }
         UpdateExecuteState();
     }
     public void ChangeState(AIState nextState)
@@ -71,18 +77,32 @@ public class AIController : MonoBehaviour
 
     private IEnumerator IdleBehaviour()
     {
+        float walkTimer = PartolDuration;
+        int direction = 1;
         while (true)
         {
+      
             if (AlertValue >= 1)
             {
                 ChangeState(AIState.Alert);
+            }
+            if (Partol)
+            {
+                character.Move(Vector3.right * direction, false);
+                walkTimer -= Time.deltaTime;
+                if (walkTimer <= 0)
+                {
+                    walkTimer = PartolDuration;
+                    direction *= -1;
+                    yield return new WaitForSeconds(2);
+                }
             }
             yield return null;
         } 
     }
     private IEnumerator AlertBehaviour()
     {
-        float time = Random.Range(0.3f, 0.7f);
+        float time = Random.Range(0.3f, 0.5f);
         yield return new WaitForSeconds(time);
         ChangeState(AIState.Chasing);
     }
@@ -99,13 +119,13 @@ public class AIController : MonoBehaviour
     }
     private IEnumerator AttackBehaviour()
     {
-        float timer = 3;
-        while (timer > 0)
+        int times = Random.Range(0, 3);
+        while (times > 0)
         {
             character.FacePosition(player.transform.position);
-            timer -= Time.deltaTime;
+            times--;
             character.Attack();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(Random.Range(0.5f, 1f));
         }
         ChangeState(AIState.Alert);
     }
@@ -114,7 +134,8 @@ public class AIController : MonoBehaviour
     {     
         if (distance <= AlertRange)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, distance, SightLayer);
+            Debug.DrawLine(transform.position + Vector3.up * 0.8f, transform.position+ direction.normalized * distance + Vector3.up * 0.8f);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position+Vector3.up*0.8f, direction.normalized, distance, SightLayer);
             if (!hit)
             {
                 bool sameDirection = character.IsFacingRight == player.transform.position.x > transform.position.x;
@@ -181,13 +202,14 @@ public class AIController : MonoBehaviour
         bool isInRange = distance < 1.5f;
         bool isValidTarget = character && !character.isDead && character.camp != 0;
         bool canAssassin = state == AIState.Idle && character.IsFacingRight != transform.position.x < player.transform.position.x;
-        if((canBeExecute != (canAssassin || character.isBroken)) && isInRange)
+        if((canBeExecute != (canAssassin || character.isBroken)) && isInRange && !character.isDead)
         {
             canBeExecute = !canBeExecute;
         }
 
     }
 }
+
 public enum AIState 
 {
     Idle,

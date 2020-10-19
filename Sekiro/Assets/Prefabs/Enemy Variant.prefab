@@ -103,9 +103,9 @@ MonoBehaviour:
   character: {fileID: 0}
   state: 0
   attackRange: 1.5
-  AlertRange: 5
-  HearRange: 1.5
-  AlertIncreaseSpeed: 1
+  AlertRange: 8
+  HearRange: 5
+  AlertIncreaseSpeed: 2
   canBeExecute: 0
   SightLayer:
     serializedVersion: 2
@@ -307,6 +307,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3231019471774697491, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: -2.2217
+      objectReference: {fileID: 0}
+    - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: attackActionPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
       propertyPath: camp
@@ -315,7 +325,7 @@ PrefabInstance:
     - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
       propertyPath: InputDirectionRight
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
@@ -368,10 +378,50 @@ PrefabInstance:
       propertyPath: graphic
       value: 
       objectReference: {fileID: 2679137813439559195}
+    - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: attackActionPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: a3547c0a96e98804aa0036a63216e590,
+        type: 3}
+    - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: BeCounterStabPrefab
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: 0625d1e5e400407418d5023ba19b18e1,
+        type: 3}
+    - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: attackActionPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: a3547c0a96e98804aa0036a63216e590,
+        type: 3}
+    - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: attackActionPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: 89e3ef700d07e8449b6395b3920b53b3,
+        type: 3}
+    - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: attackActionPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 4662063912380139593, guid: 89e3ef700d07e8449b6395b3920b53b3,
+        type: 3}
+    - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: IsLookingRight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3231019472248499120, guid: 7acdf7bda92e25b418549eb6a2e917ac,
+        type: 3}
+      propertyPath: IsFacingRight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3231019472248499122, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.59
+      value: 2.75
       objectReference: {fileID: 0}
     - target: {fileID: 3231019472248499122, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
@@ -426,17 +476,17 @@ PrefabInstance:
     - target: {fileID: 3231019472248499124, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
       propertyPath: HealthMax
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3231019472248499124, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
       propertyPath: StanceMax
-      value: 20
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3231019472248499150, guid: 7acdf7bda92e25b418549eb6a2e917ac,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: EnemyLv2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7acdf7bda92e25b418549eb6a2e917ac, type: 3}

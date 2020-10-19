@@ -32,7 +32,7 @@ public class Action_Execute : Action_Base
         Character_Player player = Caster as Character_Player;
         if(player && target)
         {
-            target.attribute.TakeDamage(100, Caster.gameObject, false, false);
+            target.attribute.TakeDamage(10000, Caster.gameObject, false, false);
         }
         else
         {

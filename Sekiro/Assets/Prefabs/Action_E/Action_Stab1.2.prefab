@@ -49,11 +49,13 @@ MonoBehaviour:
   priority: 0
   AnimationName: Enemy_Stab1_2
   useActionProgressBar: 1
-  useDanagerSign: 1
+  isStab: 1
+  isBottomAttack: 0
   Impluse: 3
   StartEffect: {fileID: 7198707629319893167, guid: 5c3c9ebc7963eae4fa2267ef854e7c1a,
     type: 3}
-  HitBox: {fileID: 3197864859499904330, guid: e86f19151ee020f4fba65546100a3617, type: 3}
+  HitBox: {fileID: 6258361093549560956, guid: 39d353652d4a9db4cb039efa4e1a829e, type: 3}
   Damage: 20
   canBlock: 0
   canParry: 0
+  duration: 0.5

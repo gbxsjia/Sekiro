@@ -888,7 +888,7 @@ GameObject:
   - component: {fileID: 3231019472248499120}
   - component: {fileID: 3231019472248499123}
   - component: {fileID: 3231019472248499124}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,6 +958,8 @@ MonoBehaviour:
   DefendActionPrefab: {fileID: 4662063912380139593, guid: 46fa5db57caa78745a32be034d630435,
     type: 3}
   BeExecutedActionPrefab: {fileID: 0}
+  BeCounterStabPrefab: {fileID: 0}
+  IsLookingRight: 1
   InputDirectionRight: 0
   IsFacingRight: 1
   isDefending: 0
@@ -965,8 +967,12 @@ MonoBehaviour:
   isBroken: 0
   isImmortal: 0
   isDead: 0
+  isCrouch: 0
+  isInBush: 0
+  isStabing: 0
   animator: {fileID: 3231019471774697493}
   graphic: {fileID: 3231019471774697491}
+  BodySlot: {fileID: 7070271098096646004}
 --- !u!50 &3231019472248499123
 Rigidbody2D:
   serializedVersion: 4
@@ -1147,7 +1153,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3231019472576564889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.517, z: 0}
+  m_LocalPosition: {x: 0, y: -0.029, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3231019472248499122}
